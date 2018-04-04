@@ -64,7 +64,7 @@
 		
 	</style>
 
- <body>
+ <body onload="getListUsers()">
  
 	<div class="header">
 		<h1>Outil de Management des utilisateurs</h1>
@@ -106,11 +106,32 @@
   
   <script>
   
+	const baseUrl = "http://127.0.0.1:8081/"
+  
+	function getListUsers(){
+		// Ici, la requête sera émise de façon synchrone.
+		var http = new XMLHttpRequest();
+		var url = baseUrl+"listUsers";
+		var params = "lorem=ipsum&name=binny";
+		http.open('GET', url, true); 
+		
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		http.onreadystatechange = function() {//Call a function when the state changes.
+			if(http.readyState == 4 && http.status == 200) {
+				alert(http.responseText);
+			}
+		}
+		http.send(params);
+		
+	}
+  
 	
 	function addUser(name, password, profession){
 	
 		var http = new XMLHttpRequest();
-		var url = "http://127.0.0.1:8081/addUser";
+		var url = baseUrl+"addUser";
 		var params = "lorem=ipsum&name=binny";
 		http.open("POST", url, true);
 
