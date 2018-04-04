@@ -1,0 +1,135 @@
+<html>
+
+<head>
+  <title>INDEX</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+</head>
+	<style>
+		h1{
+			text-align:center;
+			display:table-cell;
+			vertical-align:middle;
+		}
+		
+		.header{
+			height:150px;
+			width:100%;
+			background-color:#40c0f7;
+			display:table;
+			position:relative;
+			margin-bottom:50px;
+		}
+		
+		.flexDiv{
+	     	display: flex;
+			flex-wrap:wrap;
+			flex-direction: row;
+			justify-content: center;
+			margin-bottom:40px;
+		}
+		
+		.flexEl{
+			width:40%;
+			height:400px;
+			background-color:#E5E5E5;
+			margin-left:10px;
+			margin-right:10px;
+		}
+		
+		.flexElTitle{
+			text-align:center;
+			font-size:17px;
+			font-family: 'Roboto';
+			padding-bottom:10px;
+			border-bottom:1px solid black;
+		}
+		
+		input{
+			width:80%;
+			text-align:center;
+			margin-left:10%;
+			margin-right:10%;
+			margin-bottom:5px;
+		}
+		
+		button{
+			margin-top:20px;
+			display:block;
+			width:75%;
+			margin-left:12.5%;
+			margin-right:12.5%;
+			height:40px;
+			border-radius:10px;
+		}
+		
+	</style>
+
+ <body>
+ 
+	<div class="header">
+		<h1>Outil de Management des utilisateurs</h1>
+	</div>
+ 
+ <div class="flexDiv">
+		 <div class="flexEl">
+			<p class="flexElTitle">Add User</p>
+			<p>Informations de l'utilisateur :</p>
+			<form method="post">
+			
+				<input type=text placeholder="name" id="name"/>
+				<input type=text placeholder="password" id="password"/>
+				<input type=text placeholder="profession" id="profession"/>
+				
+				<button onclick="addUser(document.getElementById('name').value,document.getElementById('password').value, document.getElementById('profession').value)" > Validate </button>
+				
+			</form>
+			
+		 </div>
+		 
+		 <div class="flexEl">
+			<p class="flexElTitle"> Delete User</p>
+		 </div>
+		 
+ </div>
+ 
+ 
+ 
+ 
+
+<!-- 
+  <form method="post" action="/post.html" onclick="console('ok')">
+    p1=<input type="text" name="p1">
+    <input type="submit" value="post">
+  </form>
+-->
+  
+  
+  <script>
+  
+	
+	function addUser(name, password, profession){
+		console.log(name);
+		console.log(password);
+		console.log(profession);
+	
+		var http = new XMLHttpRequest();
+		var url = "http://127.0.0.1:8081/addUser";
+		var params = "lorem=ipsum&name=binny";
+		http.open("POST", url, true);
+
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		http.onreadystatechange = function() {//Call a function when the state changes.
+			if(http.readyState == 4 && http.status == 200) {
+				alert(http.responseText);
+			}else{
+				alert(http.responseText);
+			}
+		}
+		http.send(params);
+	}
+  
+  </script>
+ </body>
+</html>

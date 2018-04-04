@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "",
+  "version": "",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security"
+  }
+}
