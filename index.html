@@ -111,10 +111,12 @@
 			<p>Informations de l'utilisateur :</p>
 		
 			<input type=text placeholder="name" id="name"/>
+			<input type=text placeholder="firstname" id="firstname"/>
+			<input type=text placeholder="city" id="city"/>
 			<input type=text placeholder="password" id="password"/>
-			<input type=text placeholder="profession" id="profession"/>
 			
-			<button onclick="addUser(document.getElementById('name').value,document.getElementById('password').value, document.getElementById('profession').value)" > Validate </button>
+			
+			<button onclick="addUser(document.getElementById('name').value,document.getElementById('firstname').value,document.getElementById('city').value,document.getElementById('password').value)" > Validate </button>
 				
 		 </div>
 		 
@@ -186,6 +188,8 @@
 
 				}
 
+				makeConnection();
+
 			}
 		}
 		http.send(params);
@@ -193,15 +197,35 @@
 	}
   
 	
-	function addUser(name, password, profession){
+	function addUser(name, firstname, city, password){
 		console.log(name);
+		console.log(firstname);
+		console.log(city);
 		console.log(password);
-		console.log(profession);
 	
 		var http = new XMLHttpRequest();
 		var url = baseUrl+"addUser";
 		var params = "lorem=ipsum&name=binny";
 		http.open("POST", url, true);
+
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		http.onreadystatechange = function() {//Call a function when the state changes.
+			if(http.readyState == 4 && http.status == 200) {
+				console.log(http.responseText);
+			}
+		}
+		http.send(params);
+	}
+
+
+
+	function makeConnection(){
+		var http = new XMLHttpRequest();
+		var url = baseUrl+"connectToDB";
+		var params = "lorem=ipsum&name=binny";
+		http.open("GET", url, true);
 
 		//Send the proper header information along with the request
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

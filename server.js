@@ -1,4 +1,5 @@
 var express = require('express');
+var mysql = require('mysql');
 var app = express();
 var fs = require("fs");
 
@@ -32,6 +33,26 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.get('/connectToDB',function(req,res){
+
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "web_service_bdd"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+    con.query("SELECT * FROM users", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
+
+})
 
 app.get('/listUsers', function (req, res) {
    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
