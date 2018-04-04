@@ -77,20 +77,16 @@ var firstname = req.body.firstname;
 var city = req.body.city;
 var password = req.body.password;
 
-console.log(name);
-
-res.end("ok")
-/*
 con.connect(function(err) {
   if (err) throw err;
-  var sql = "INSERT INTO users VALUES ('Company Inc', 'Highway 37')";
+  var sql = "INSERT INTO users (name,firstname,city,password,token) VALUES ('"+name+"','"+firstname+"','"+city+"','"+password+"','')";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
     res.end("L'utilisateur a bien été créé");
   });
 });
-*/
+
 })
 
 
