@@ -2,16 +2,10 @@ var express = require('express');
 var mysql = require('mysql');
 var app = express();
 var fs = require("fs");
+var bodyParser = require('body-parser');
 
-var user = {
-   "user4" : {
-      "name" : "mohit",
-      "password" : "password4",
-      "profession" : "teacher",
-      "id": 4
-   }
-}
-
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Add headers
 app.use(function (req, res, next) {
@@ -54,14 +48,7 @@ con.connect(function(err) {
 });
 
 })
-/*
-app.get('/listUsers', function (req, res) {
-   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       console.log( data );
-       res.end( data );
-   });
-})
-*/
+
 app.get('/getUser/:id', function (req, res) {
    // First read existing users.
    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
@@ -72,19 +59,38 @@ app.get('/getUser/:id', function (req, res) {
    });
 })
 
-app.post('/post.html', function(request, response) {
-  var p1 = request.body.p1; 
-  console.log("p1=" + p1);
+
+app.post('/addUser',function(req,res){
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "web_service_bdd"
 });
 
-app.post('/addUser', function (req, res) {
-   // First read existing users.
-   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       data = JSON.parse( data );
-       data["user4"] = user["user4"];
-       console.log( data );
-       res.end( JSON.stringify(data));
-   });
+console.log(req.body);
+
+
+var name = req.body.name;
+var firstname = req.body.firstname;
+var city = req.body.city;
+var password = req.body.password;
+
+console.log(name);
+
+res.end("ok")
+/*
+con.connect(function(err) {
+  if (err) throw err;
+  var sql = "INSERT INTO users VALUES ('Company Inc', 'Highway 37')";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+    res.end("L'utilisateur a bien été créé");
+  });
+});
+*/
 })
 
 

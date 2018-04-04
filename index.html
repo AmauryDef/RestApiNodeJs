@@ -190,19 +190,14 @@
 			}
 		}
 		http.send(params);
-		
 	}
   
 	
 	function addUser(name, firstname, city, password){
-		console.log(name);
-		console.log(firstname);
-		console.log(city);
-		console.log(password);
 	
 		var http = new XMLHttpRequest();
 		var url = baseUrl+"addUser";
-		var params = "lorem=ipsum&name=binny";
+		var params = 'name='+name+'&firstname='+firstname+'&city='+city+'&password='+password;
 		http.open("POST", url, true);
 
 		//Send the proper header information along with the request
