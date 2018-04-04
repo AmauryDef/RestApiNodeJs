@@ -108,9 +108,6 @@
   
 	
 	function addUser(name, password, profession){
-		console.log(name);
-		console.log(password);
-		console.log(profession);
 	
 		var http = new XMLHttpRequest();
 		var url = "http://127.0.0.1:8081/addUser";
@@ -122,8 +119,6 @@
 
 		http.onreadystatechange = function() {//Call a function when the state changes.
 			if(http.readyState == 4 && http.status == 200) {
-				alert(http.responseText);
-			}else{
 				alert(http.responseText);
 			}
 		}
