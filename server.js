@@ -33,7 +33,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/connectToDB',function(req,res){
+app.get('/listUsers',function(req,res){
 
 
 var con = mysql.createConnection({
@@ -49,18 +49,19 @@ con.connect(function(err) {
     con.query("SELECT * FROM users", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
+    res.end(JSON.stringify(result));
   });
 });
 
 })
-
+/*
 app.get('/listUsers', function (req, res) {
    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
        console.log( data );
        res.end( data );
    });
 })
-
+*/
 app.get('/getUser/:id', function (req, res) {
    // First read existing users.
    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
