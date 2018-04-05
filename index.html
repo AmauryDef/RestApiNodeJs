@@ -194,6 +194,8 @@
   
 	
 	function addUser(name, firstname, city, password){
+
+		if(name && firstname && city && password && name.length>0 && firstname.length>0 && city.length>0 && password.length>0){
 	
 		var http = new XMLHttpRequest();
 		var url = baseUrl+"addUser";
@@ -206,9 +208,31 @@
 		http.onreadystatechange = function() {//Call a function when the state changes.
 			if(http.readyState == 4 && http.status == 200) {
 				console.log(http.responseText);
+
+				var table = document.getElementById('table');
+
+				var row = document.createElement('tr');
+				var nameC = document.createElement('td');
+				nameC.innerHTML = name;
+				var firstnameC = document.createElement('td');
+				firstnameC.innerHTML = firstname;
+				var cityC = document.createElement('td');
+				cityC.innerHTML = city
+				var passwordC = document.createElement('td');
+				passwordC.innerHTML = password;
+
+				row.appendChild(nameC);
+				row.appendChild(firstnameC);
+				row.appendChild(cityC);
+				row.appendChild(passwordC);
+				table.appendChild(row);
 			}
 		}
 		http.send(params);
+
+		}else{
+			alert("Please fill in all the inputs before validation");
+		}
 	}
   
   </script>
