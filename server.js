@@ -49,14 +49,28 @@ con.connect(function(err) {
 
 })
 
-app.get('/getUser/:id', function (req, res) {
-   // First read existing users.
-   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-      var users = JSON.parse( data );
-      var user = users["user" + req.params.id]; 
-      console.log( user );
-      res.end( JSON.stringify(user));
-   });
+app.get('/user/:id', function (req, res) {
+
+var i = req.param('id');
+console.log(i);
+
+// First read existing users.
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "web_service_bdd"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+    con.query("SELECT * FROM users WHERE id = "+i, function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.end(JSON.stringify(result));
+  });
+});
 })
 
 

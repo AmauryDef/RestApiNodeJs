@@ -108,7 +108,7 @@
  <div class="flexDiv">
 		 <div class="flexEl">
 			<p class="flexElTitle">Add User</p>
-			<p>Informations de l'utilisateur :</p>
+			<p style="margin-left:10px;">Informations de l'utilisateur :</p>
 		
 			<input type=text placeholder="name" id="name"/>
 			<input type=text placeholder="firstname" id="firstname"/>
@@ -121,7 +121,14 @@
 		 </div>
 		 
 		 <div class="flexEl">
-			<p class="flexElTitle"> Delete User</p>
+			<p class="flexElTitle"> GET specific User</p>
+
+			<p style="margin-left:10px;"> ID de l'utilisateur à récupérer :</p>
+		
+			<input type=text placeholder="id" id="id"/>
+			
+			<button onclick="getUserById(document.getElementById('id').value)" > Search </button>
+
 		 </div>
 		 
  </div>
@@ -234,6 +241,27 @@
 			alert("Please fill in all the inputs before validation");
 		}
 	}
+
+
+	function getUserById(id){
+		// Ici, la requête sera émise de façon synchrone.
+		var http = new XMLHttpRequest();
+		var url = baseUrl+"user/";
+		var params = id;
+		http.open('GET', url+params, true); 
+		
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		http.onreadystatechange = function() {//Call a function when the state changes.
+			if(http.readyState == 4 && http.status == 200) {
+				json = JSON.parse(http.responseText);
+				console.log(json);
+			}
+		}
+		http.send(null);
+	}
+ 
   
   </script>
  </body>
